@@ -1,0 +1,54 @@
+<div class="pageContiner">
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef=" ">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row; let rIndex = index;">
+
+                <a class="header-value"> {{header}} </a>
+                <!--Input tag the only show up when editpointer col and row equal to the location of the cell-->
+
+                <button mat-icon-button (click)="deleteRow(rIndex)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button (click)="addRow(rIndex)">
+                    <mat-icon>add</mat-icon>
+                </button>
+                {{rIndex + 1}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container *ngFor="let header of displayedColumns  | slice:1:displayedColumns.length; index as cindex"
+            [cdkColumnDef]="header">
+            <mat-header-cell *matHeaderCellDef>
+
+                <a class="header-value"> {{header}} </a>
+
+                <button mat-icon-button (click)="deleteColumn(cindex)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button (click)="addColumn(cindex)">
+                    <mat-icon>add</mat-icon>
+                </button>
+
+            </mat-header-cell>
+
+            <!-- when switch function is called then the value of editpointer and trucker will change accordingly
+          ngClass will change the color of the background of the edited cell-->
+            <mat-cell *cdkCellDef="let element; index as rindex" (click)="switchToInput(rindex, cindex)"
+                [ngClass]="{'activeCell': editor.editPointer.col === cindex && editor.editPointer.row === rindex}">
+                <!-- input and ngIf direacter to switch between to editing mode 
+               if editpointer col and row equal to cindex and rindex than switch to input-->
+                <a *ngIf="editor.editPointer.col != cindex || editor.editPointer.row != rindex" class="cell-value">
+                    {{element[cindex]}} </a>
+                <input  type="number" matInput *ngIf="editor.editPointer.col === cindex && editor.editPointer.row === rindex"
+                    [(ngModel)]="element[cindex]" #value="ngModel" name="value">
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+</div>
