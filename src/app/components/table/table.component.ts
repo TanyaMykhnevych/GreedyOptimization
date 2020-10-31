@@ -10,9 +10,9 @@ export class TableComponent {
     public displayedColumns: string[] = [' '];
     public dataSource = new MatTableDataSource([]);
 
-    @Input() public set data(data: []) {
+    @Input() public set data(data: number[][]) {
         this.dataSource = new MatTableDataSource(data);
-        Array.from(Array(data.length).keys()).map(d => this.displayedColumns.push(String.fromCharCode(65 + d)));
+        Array.from(Array(data[0].length).keys()).map(d => this.displayedColumns.push(String.fromCharCode(65 + d)));
     }
 
     public editor = {
