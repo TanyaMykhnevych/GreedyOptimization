@@ -3,5 +3,8 @@
   <app-table [data]=data></app-table>
   <br />
   <button mat-raised-button (click)="calculate()">Calculate</button>
-
+  <div *ngIf="calculationTime">
+    <br />
+    <h3>Calculation time: {{calculationTime}} miliseconds</h3>
+  </div>
 </div>

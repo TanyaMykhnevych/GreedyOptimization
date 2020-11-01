@@ -9,6 +9,8 @@ import { GreedySolver } from './greedy-solver';
 })
 export class AppComponent {
 
+  public calculationTime = 0;
+
   @ViewChild(TableComponent, { static: true }) public table: TableComponent;
 
   constructor() { }
@@ -26,7 +28,10 @@ export class AppComponent {
     const lastMatrixColumn = this._getLastMatrixColumn(data);
     const koefs = this._getKoefs(data);
 
+    const t0 = performance.now();
     const result = new GreedySolver().solve(koefs, lastMatrixColumn, lastMatrixRow);
+    const t1 = performance.now();
+    this.calculationTime = t1 - t0;
 
     debugger;
   }
