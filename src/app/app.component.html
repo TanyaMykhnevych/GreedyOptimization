@@ -3,7 +3,6 @@
   <app-table [data]=data></app-table>
   <br />
   <button mat-raised-button (click)="calculate()">Calculate</button>
-
   <div *ngIf="result">
     <h2>Total revenue: {{result.getTotalRevenue()}} UAN</h2>
     <h2>Execution time: {{executionTimeMs}} ms = {{(executionTimeMs / 1000).toFixed(6)}} secs</h2>
