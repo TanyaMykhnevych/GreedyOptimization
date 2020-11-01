@@ -31,6 +31,7 @@
         cursor: auto;
       }
       > .mat-cell {
+        max-width: 10px;
         display: table-cell;
         border: 1px solid skyblue;
         padding: 0 0.5em;
@@ -59,4 +60,9 @@
     &:hover {
       color: rgb(0, 105, 146)
     }
+  }
+
+  input{
+    font-size: 1vw;
+    max-width: 50px;
   }

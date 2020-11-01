@@ -53,10 +53,9 @@ export class AppComponent {
 
   private _getLastMatrixColumn(array: number[][]): number[] {
     const result = [];
-    for (let i = 0; i < array[0].length - 1; i++) {
+    for (let i = 0; i < array.length - 1; i++) {
       result[i] = array[i][array[0].length - 1];
     }
-    result.splice(-1, 1);
 
     return result;
   }
