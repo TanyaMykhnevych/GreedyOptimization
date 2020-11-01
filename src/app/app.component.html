@@ -1,5 +1,10 @@
 <div class="pageContiner">
   <h2>Greedy algorythm</h2>
+  <div style="margin: 20px 0;">
+    <button (click)="setSample(3)">3x3 sample</button>
+    <button (click)="setSample(7)">7x7 sample</button>
+    <button (click)="setSample(15)">15x15 sample</button>
+  </div>
   <app-table [data]=data></app-table>
   <br />
   <button mat-raised-button (click)="calculate()">Calculate</button>

@@ -12,7 +12,8 @@ export class TableComponent {
 
     @Input() public set data(data: number[][]) {
         this.dataSource = new MatTableDataSource(data);
-        Array.from(Array(data[0].length + 1).keys()).map(d => { if (d) { this.displayedColumns.push(d.toString()); } });
+        this.displayedColumns = [' '];
+        Array.from(Array(data[0].length).keys()).map(d => { if (d) { this.displayedColumns.push(d.toString()); } });
     }
 
     public editor = {
