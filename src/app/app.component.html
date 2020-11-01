@@ -4,4 +4,19 @@
   <br />
   <button mat-raised-button (click)="calculate()">Calculate</button>
 
+  <div *ngIf="result">
+    <h2>Total revenue: {{result.getTotalRevenue()}} UAN</h2>
+    <h2>Execution time: {{executionTimeMs}} ms = {{(executionTimeMs / 1000).toFixed(6)}} secs</h2>
+    <h3>Resolution:</h3>
+    <div *ngFor="let step of result.steps; let i = index">
+      <p>Step #{{i + 1}}</p>
+      <p>Produce <b>{{step.count}}</b> units of <b>{{getColumnName(step.workIndex)}}</b></p>
+      <p><b>Earned money:</b> {{step.totalPrice}} UAN</p>
+      <p>Available resources after step: </p>
+      <p *ngFor="let resourceCount of step.availableResourcesAfterStep; let i = index">
+        {{getColumnName(i)}}: {{resourceCount}}
+      </p>
+      <hr>
+    </div>
+  </div>
 </div>

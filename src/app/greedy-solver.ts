@@ -1,10 +1,13 @@
+import { SolveResult } from './solve-result';
+
 export class GreedySolver {
   solve(
     neededResources: number[][],
     availableResources: number[],
     pricesPerUnit: number[]
-  ): number[] {
-    const result = new Array(pricesPerUnit.length).fill(0);
+  ): SolveResult {
+    const result = new SolveResult();
+    result.workCounts = new Array(pricesPerUnit.length).fill(0);
     const rows = neededResources.length;
 
     const sortedPrices = pricesPerUnit
@@ -13,12 +16,13 @@ export class GreedySolver {
 
     for (const priceData of sortedPrices) {
       const col = priceData.index;
-
       let minPacksCount = Number.MAX_SAFE_INTEGER;
+
       for (let i = 0; i < rows; i++) {
         const intNumberOfPacks = Math.floor(
           availableResources[i] / neededResources[i][col]
         );
+
         minPacksCount = Math.min(intNumberOfPacks, minPacksCount);
       }
 
@@ -26,7 +30,16 @@ export class GreedySolver {
         availableResources[i] -= neededResources[i][col] * minPacksCount;
       }
 
-      result[col] = minPacksCount;
+      result.workCounts[col] = minPacksCount;
+
+      if (minPacksCount > 0) {
+        result.steps.push({
+          workIndex: col,
+          count: minPacksCount,
+          totalPrice: minPacksCount * priceData.price,
+          availableResourcesAfterStep: availableResources.slice()
+        });
+      }
     }
 
     return result;

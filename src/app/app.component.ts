@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { TableComponent } from './components/table/table.component';
 import { GreedySolver } from './greedy-solver';
+import { SolveResult } from './solve-result';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class AppComponent {
     [1, 3, 7, 0],
   ];
 
+  public result: SolveResult;
+  public executionTimeMs: number;
+
   public calculate(): void {
     const data = this.table.dataSource.data;
 
@@ -26,9 +30,18 @@ export class AppComponent {
     const lastMatrixColumn = this._getLastMatrixColumn(data);
     const koefs = this._getKoefs(data);
 
-    const result = new GreedySolver().solve(koefs, lastMatrixColumn, lastMatrixRow);
+    const startTimestampMs = performance.now();
+    this.result = new GreedySolver().solve(koefs, lastMatrixColumn, lastMatrixRow);
+    const endTimestampMs = performance.now();
 
-    debugger;
+    this.executionTimeMs = Number((endTimestampMs - startTimestampMs).toFixed(3));
+
+    console.log(this.result);
+    console.log(`${endTimestampMs - startTimestampMs} ms`);
+  }
+
+  public getColumnName(index: string): string {
+    return this.table.displayedColumns[index + 1];
   }
 
   private _getLastMatrixRow(array: number[][]): number[] {
